@@ -13,54 +13,52 @@ export default function AddCategory() {
     });
   }, []);//empty dependancy runs only once when the website is rendered
 
-  async function loadCategories() {
-    try {
-      setLoading(true);
-      const res = await api.get("/Category");
-      // axios returns data directly in res.data
-      setCategories(res.data || []);
-    } catch (err) {
-      console.error(err);
-      setError("Could not load categories");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const createCategory = async (e) => {
+  e.preventDefault(); // IMPORTANT
 
-  async function createCategory(e) {
-    e.preventDefault();
-    setError(null);
-    if (!form.name.trim()) {
-      setError("Name is required");
-      return;
-    }
+  const newCategory = {
+    name: form.name,
+    description: form.description,
+  };
 
-    try {
-      setLoading(true);
-      await api.post("/Category", form);
-      setForm({ name: "", description: "" });
-      await loadCategories();
-    } catch (err) {
-      console.error(err);
-      setError(err?.response?.data?.detail || "Failed to create category");
-    } finally {
-      setLoading(false);
-    }
-  }
+  try {
+    const res = await fetch("http://localhost:8000/Category", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newCategory),
+    });
 
-  async function deleteCategory(id) {
-    if (!confirm("Delete this category?")) return;
-    try {
-      setLoading(true);
-      await api.delete(`/Category/${id}`);
-      await loadCategories();
-    } catch (err) {
-      console.error(err);
-      setError("Failed to delete category");
-    } finally {
-      setLoading(false);
-    }
+    if (!res.ok) throw new Error("Failed to create category");
+
+    // reload categories
+    const created = await res.json();
+    setCategories((prev) => [...prev, created]);
+
+    // clear form
+    setForm({ name: "", description: "" });
+
+  } catch (err) {
+    console.error(err);
   }
+};
+
+
+  
+
+  const deleteCategory = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:8000/Category/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) throw new Error("Failed to delete category");
+
+    setCategories((prev) => prev.filter((cat) => cat.id !== id));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 
   return (
     <div style={{ padding: 20 }}>

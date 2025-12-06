@@ -1,23 +1,46 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-export default function RoleSelect() {
-  const { setRole } = useContext(AuthContext);
-  const navigate = useNavigate();
+function RoleSelect() {
+    const [users, setUsers] = useState([]);
+    const { setRole } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-  const chooseRole = (selected) => {
-    setRole(selected);
-    navigate("/dashboard");
-  };
+    useEffect(() => {
+        fetch("http://localhost:8000/User")
+            .then(res => res.json())
+            .then(data => setUsers(data));
+    }, []);
 
-  return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h2>Select Your Role</h2>
+    const handleSelect = (id) => {
+        if (!id) return;
 
-      <button onClick={() => chooseRole("employee")}>Employee</button>
-      <button onClick={() => chooseRole("manager")}>Manager</button>
-      <button onClick={() => chooseRole("owner")}>Shop Owner</button>
-    </div>
-  );
+        const selectedUser = users.find(u => u.id === parseInt(id));
+
+        if (!selectedUser) return;
+
+        // Save role to context
+        setRole(selectedUser.role);
+
+        // Go to dashboard
+        navigate("/dashboard");
+    };
+
+    return (
+        <div style={{ padding: 20 }}>
+            <h2>Select User</h2>
+
+            <select onChange={(e) => handleSelect(e.target.value)}>
+                <option value="">Select user</option>
+                {users.map((u) => (
+                    <option key={u.id} value={u.id}>
+                        {u.name} ({u.role})
+                    </option>
+                ))}
+            </select>
+        </div>
+    );
 }
+
+export default RoleSelect;
