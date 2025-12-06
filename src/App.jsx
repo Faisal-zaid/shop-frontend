@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
-import RoleSelect from "./pages/RoleSelect";
-import Dashboard from "./pages/Dashboard";
-import AddProduct from "./pages/AddProduct";
-import AddCategory from "./pages/AddCategory";
-import SellProduct from "./pages/SellProduct";
-import Analytics from "./pages/Analytics";
+import RoleSelect from "./components/RoleSelect";
+import Dashboard from "./components/Dashboard";
+import AddProduct from "./components/AddProduct";
+import AddCategory from "./components/AddCategory";
+import SellProduct from "./components/SellProduct";
+import Analytics from "./components/Analytics";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
