@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
+import "./Analytics.css";
 
 export default function Analytics() {
-  const [orders, setOrders] = useState([]);
-  const [products, setProducts] = useState([]);
   const [salesSummary, setSalesSummary] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,48 +12,51 @@ export default function Analytics() {
       setError(null);
 
       try {
-        // Fetch all orders
-        const ordersResponse = await fetch("http://localhost:8000/Order");
-        if (!ordersResponse.ok) throw new Error("Failed to fetch orders");
-        const ordersData = await ordersResponse.json();
+        // Fetch products
+        const productsRes = await fetch("http://localhost:8000/Product");
+        if (!productsRes.ok) throw new Error("Failed to fetch products");
+        const productsData = await productsRes.json();
 
-        // Fetch all products
-        const productsResponse = await fetch("http://localhost:8000/Product");
-        if (!productsResponse.ok) throw new Error("Failed to fetch products");
-        const productsData = await productsResponse.json();
+        // Fetch categories
+        const categoriesRes = await fetch("http://localhost:8000/Category");
+        if (!categoriesRes.ok) throw new Error("Failed to fetch categories");
+        const categoriesData = await categoriesRes.json();
 
-        setOrders(ordersData);
-        setProducts(productsData);
+        // Fetch orders
+        const ordersRes = await fetch("http://localhost:8000/Order");
+        if (!ordersRes.ok) throw new Error("Failed to fetch orders");
+        const ordersData = await ordersRes.json();
 
         // Aggregate total quantity sold per product
         const salesByProduct = {};
         ordersData.forEach((order) => {
-          if (!salesByProduct[order.product_id]) {
-            salesByProduct[order.product_id] = 0;
-          }
-          salesByProduct[order.product_id] += order.quantity;
+          const productId = Number(order.product_id);
+          const quantity = Number(order.quantity);
+
+          const productExists = productsData.some((p) => p.id === productId);
+          if (!productExists) return;
+
+          if (!salesByProduct[productId]) salesByProduct[productId] = 0;
+          salesByProduct[productId] += quantity;
         });
 
-        // Build analytics array with remaining stock
-        const salesArray = Object.keys(salesByProduct).map((productId) => {
-          const product = productsData.find(
-            (p) => p.id === parseInt(productId)
-          );
-
-          const totalSold = salesByProduct[productId];
+        // Build analytics array for all products
+        const salesArray = productsData.map((product) => {
+          const totalSold = salesByProduct[Number(product.id)] || 0;
+          const remainingStock = Number(product.stock) - totalSold;
+          const category = categoriesData.find(c => c.id === product.category_id);
 
           return {
-            product_id: productId,
-            product_name: product ? product.name : "Unknown Product",
+            product_id: product.id,
+            product_name: product.name,
+            category_name: category ? category.name : "Unknown",
             total_quantity_sold: totalSold,
-            remaining_stock: product ? product.stock : 0, // <-- CORRECT FIELD
+            remaining_stock: remainingStock >= 0 ? remainingStock : 0,
           };
         });
 
         // Sort by highest sold
-        salesArray.sort(
-          (a, b) => b.total_quantity_sold - a.total_quantity_sold
-        );
+        salesArray.sort((a, b) => b.total_quantity_sold - a.total_quantity_sold);
 
         setSalesSummary(salesArray);
       } catch (err) {
@@ -70,22 +72,29 @@ export default function Analytics() {
 
   return (
     <div className="main">
-    <div className="container">
-      <h2>Sales Analytics (From Highest Sold to Lowest Sold)</h2>
+      <div className="container">
+        <h2>Sales Analytics (From Highest Sold to Lowest Sold)</h2>
 
-      {loading && <div>Loading sales data...</div>}
-      {error && <div>Error: {error}</div>}
-      {!loading && salesSummary.length === 0 && <div>No sales yet.</div>}
+        {loading && <div>Loading sales data...</div>}
+        {error && <div>Error: {error}</div>}
+        {!loading && salesSummary.length === 0 && <div>No products available.</div>}
 
-      <ul>
-        {salesSummary.map((product) => (
-          <li key={product.product_id}>
-            {product.product_name} — Sold: {product.total_quantity_sold} — 
-            Remaining: {product.remaining_stock}
-          </li>
-        ))}
-      </ul>
-    </div>
+        <ul>
+          {salesSummary.map((product) => (
+            <li key={product.product_id}>
+              <div className="product-info">
+                <span className="product-name">{product.product_name}</span>
+                <span className="product-category">{product.category_name}</span>
+              </div>
+              <div className="product-stats">
+                <span className="sold">Sold: {product.total_quantity_sold}</span>
+
+                <span className="remaining">Remaining: {product.remaining_stock}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

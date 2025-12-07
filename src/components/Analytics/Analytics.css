@@ -1,46 +1,76 @@
 .container {
   padding: 20px;
-  max-width: 500px;
+  max-width: 600px;
   margin: 20px auto;
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
   font-family: Arial, sans-serif;
   color: #064e3b;
-  text-align: center;        /* Center everything */
-}
-
-/* Form elements */
-input, select, button {
-  width: 100%;
-  max-width: 100%;           /* Prevent overflow */
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  border: 1px solid #c6f6d5;
-  font-size: 16px;
-}
-
-/* Buttons */
-button {
-  background-color: #16a34a;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button:hover {
-  background-color: #15803d;
+  text-align: center;
 }
 
 /* List items */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 ul li {
-  padding: 10px;
+  padding: 15px;
   border-bottom: 1px solid #d1fae5;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-radius: 8px;
+  background: #f0fdf4;
+  margin-bottom: 10px;
+}
+
+/* Product info */
+.product-info {
+  text-align: left;
+}
+
+.product-name {
+  font-weight: bold;
+  font-size: 16px;
+  display: block;
+}
+
+.product-category {
+  font-size: 14px;
+  color: #065f46;
+  display: block;
+}
+
+/* Product stats */
+.product-stats {
+  text-align: right;
+}
+
+.product-stats .sold {
+  background: #16a34a;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-right: 5px;
+}
+
+.remaining {
+  background: #fcd34d;
+  color: #92400e;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* Headings */
+h2 {
+  margin-bottom: 20px;
+  color: #065f46;
 }
 
 /* Mobile responsive */
@@ -50,11 +80,13 @@ ul li {
     padding: 15px;
   }
 
-  input, select, button {
-    font-size: 14px;
+  ul li {
+    flex-direction: column;
+    text-align: left;
   }
 
-  ul li {
-    font-size: 14px;
+  .product-stats {
+    text-align: left;
+    margin-top: 5px;
   }
 }
