@@ -1,16 +1,34 @@
-# React + Vite
+# (Phase3-final project(Inventory Management))
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### Date, 2025/12/07
 
-Currently, two official plugins are available:
+#### By *Faisal Ali Zaid*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Description
+It's a final project for phase 3 that is on the front end. Here an employee can sell products to the 
+customer while the manager and shop owner can add categories, products view the sells analytics and 
+also sell products.
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Installation
+You use git clone to be able to download the repo in GitHub
 
-## Expanding the ESLint configuration
+## Installation Requirements
+Git
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Installation instruction
+```
+Git clone git@github.com:Faisal-zaid/shop-frontend.git
+
+```
+
+## Technologies used
+
+Github
+React
+
+## Support and contact details
+https://github.com/Faisal-zaid
+
+### License
+The content of this code challenge is licensed under the moringa school
