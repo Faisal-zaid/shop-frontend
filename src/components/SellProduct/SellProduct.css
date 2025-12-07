@@ -1,0 +1,69 @@
+.main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 30px;
+  background: #f4fdf5;
+}
+.container {
+  padding: 20px;
+  max-width: 500px;
+  margin: 20px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+  color: #064e3b;
+  text-align: center;        /* Center everything */
+}
+
+/* Form elements */
+input, select, button {
+  width: 100%;
+  max-width: 100%;           /* Prevent overflow */
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #c6f6d5;
+  font-size: 16px;
+}
+
+/* Buttons */
+button {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #15803d;
+}
+
+/* List items */
+ul li {
+  padding: 10px;
+  border-bottom: 1px solid #d1fae5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .container {
+    max-width: 92%;
+    padding: 15px;
+  }
+
+  input, select, button {
+    font-size: 14px;
+  }
+
+  ul li {
+    font-size: 14px;
+  }
+}
