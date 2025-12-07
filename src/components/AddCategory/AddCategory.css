@@ -1,0 +1,126 @@
+/* Main container */
+.main {
+  width: 100%;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 30px;
+  background: rgb(210, 248, 154);
+}
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 100, 50, 0.15);
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: #064e3b;  /* deep green */
+}
+
+/* Headings */
+.container h2 {
+  margin-bottom: 20px;
+  color: #065f46;
+}
+
+.container h3 {
+  margin-top: 35px;
+  margin-bottom: 15px;
+  color: #065f46;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #c6f6d5;  /* light green border */
+  background: #f0fff4;        /* very light green background */
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 5px rgba(22, 163, 74, 0.4);
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #16a34a; /* green */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #15803d; /* darker green */
+}
+
+button:disabled {
+  background-color: #9ae6b4; /* lighter when disabled */
+  cursor: not-allowed;
+}
+
+/* Category list */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  background: #ecfdf5; /* soft greenish background */
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #064e3b;
+  font-size: 15px;
+  border: 1px solid #d1fae5;
+}
+
+/* Delete button in list */
+ul li button {
+  width: auto;
+  padding: 8px 12px;
+  background: #dc2626; /* red */
+  color: white;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+ul li button:hover {
+  background: #b91c1c;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  ul li {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  ul li button {
+    width: 100%;
+  }
+}
