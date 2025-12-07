@@ -1,0 +1,71 @@
+.main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  background: #f0fdf4;       /* soft green background */
+}
+
+/* Main card container */
+.container {
+  padding: 30px;
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 5px 14px rgba(0,0,0,0.12);
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #064e3b;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Title */
+.container h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #065f46;
+}
+
+/* Dashboard Links */
+.container a {
+  display: block;
+  padding: 13px 0;
+  margin: 10px 0;
+  background: #10b981;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.container a:hover {
+  background: #059669;
+  transform: scale(1.03);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    max-width: 92%;
+    padding: 20px;
+  }
+
+  .container h2 {
+    font-size: 22px;
+  }
+
+  .container a {
+    font-size: 15px;
+    padding: 12px 0;
+  }
+}
